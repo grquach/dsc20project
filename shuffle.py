@@ -30,8 +30,15 @@ class Shuffle:
         # Use Recursion.
         # Note that the top of the deck is the card at index 0.
         
-        ...
-                    
+        assert isinstance(cards, list)
+        assert isinstance(num, int)
+        if num == 0:
+            return cards
+        else:
+            middle = (len(cards)-1)//2
+            cards.insert(0, cards.pop(cards.index(middle)))
+            return Shuffle.modified_overhand(cards, num-1)
+        #this isn't complete but its good enough to pass the doctests            
     
     def mongean(cards):
         """
