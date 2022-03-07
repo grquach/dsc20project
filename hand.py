@@ -70,37 +70,52 @@ class PlayerHand():
     """
     
     def __init__(self):
-        ...
+        self.cards = []
         
     def add_card(self, *cards):
         """
         Adds cards to the hand, then sorts
         them in ascending order.
         """
-        ...
+        assert all([isinstance(card, Card) for card in cards])
+
+        for card in cards:
+            self.cards.append(card)
+        self.sort_hand()
 
     def get_cards(self):
-        ...            
+        return self.cards            
 
     def __str__(self):
         """
         Returns the string representation of all cards
         in the hand, with each card on a new line.
         """
-        ...
+        res = ''
+        for card in self.cards:
+            res += str(card) + '\n'
+        return res.strip()
     
     def __repr__(self):
         """
         Returns the representation of all cards, with 
         each card separated by a space.
         """
-        ...
+        res = ''
+        for card in self.cards:
+            res += repr(card) + ' '
+        return res
 
     def sort_hand(self):
         """
         Sorts the cards in ascending order.
         """
-        ...
+        for i in range(len(self.cards)-1):
+            smallest = self.cards[i]
+            for j in range(i, len(self.cards)):
+                if self.cards[j] < smallest:
+                    smallest = self.cards[j]
+                    self.cards[j], self.cards[i] = self.cards[i], self.cards[j]
         
     
 class DealerHand(PlayerHand):
@@ -108,7 +123,8 @@ class DealerHand(PlayerHand):
     def __init__(self):
         # This should inherit attributes from
         # the parent PlayerHand class.
-        ...
+        self.hand_visible = False
+        super().__init__(self)
 
     def add_card(self, *cards):
         """
@@ -117,14 +133,24 @@ class DealerHand(PlayerHand):
         If the dealer's hand is visible, then add cards to hand as 
         usual and sort them in ascending order.
         """
-        ...
+        assert all([isinstance(card, Card) for card in cards])
+
+        for i in range(len(self.cards)):
+            if i==0:
+                self.cards[i].hand_visible = True
+            else:
+                self.cards[i].set_visible(self.hand_visible)
+        if self.hand_visible:
+            self.sort_hand()
     
     def reveal_hand(self):
         """
         Makes all the cards in the hand visible
         and sorts them in ascending order.
         """
-        ...
+        for card in self.cards:
+            card.set_visible(True)
+        self.sort_hand()
     
     
     
