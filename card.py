@@ -160,9 +160,9 @@ class Card:
             "|__?|"
         else:
             return "____" + "\n" + \
-            "|" + self.get_rank() + "  |" + "\n" + \
+            "|" + str(self.get_rank()) + "  |" + "\n" + \
             "| " + suit_icon + " |" + "\n" + \
-            "|__" + self.get_rank() + "|"
+            "|__" + str(self.get_rank()) + "|"
             
     def __repr__(self):
         """
