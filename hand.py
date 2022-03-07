@@ -104,7 +104,7 @@ class PlayerHand():
         res = ''
         for card in self.cards:
             res += repr(card) + ' '
-        return res
+        return res.strip()
 
     def sort_hand(self):
         """
@@ -124,7 +124,7 @@ class DealerHand(PlayerHand):
         # This should inherit attributes from
         # the parent PlayerHand class.
         self.hand_visible = False
-        super().__init__(self)
+        super().__init__()
 
     def add_card(self, *cards):
         """
@@ -134,14 +134,13 @@ class DealerHand(PlayerHand):
         usual and sort them in ascending order.
         """
         assert all([isinstance(card, Card) for card in cards])
-
-        for i in range(len(self.cards)):
-            if i==0:
-                self.cards[i].hand_visible = True
-            else:
-                self.cards[i].set_visible(self.hand_visible)
-        if self.hand_visible:
-            self.sort_hand()
+        if not self.hand_visible:
+            for i in range(len(cards)):
+                cards[i].set_visible(self.hand_visible)
+                self.cards.append(cards[i])
+                self.cards[0].set_visible(True)
+        elif self.hand_visible:
+            super().add_card(*cards)
     
     def reveal_hand(self):
         """
@@ -153,4 +152,16 @@ class DealerHand(PlayerHand):
         self.sort_hand()
     
     
-    
+card_1 = Card("A", "spades")
+card_2 = Card(2, "diamonds")
+card_3 = Card(3, "clubs")
+card_4 = Card(4, "hearts")
+card_5 = Card(5, "spades")
+card_6 = Card("K", "diamonds")
+card_7 = Card("J", "clubs")
+card_8 = Card("Q", "hearts")
+
+d_hand = DealerHand()
+d_hand.add_card(card_4)
+d_hand.add_card(card_5, card_6)
+# print(d_hand)
