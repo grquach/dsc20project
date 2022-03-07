@@ -32,7 +32,7 @@ class PlayerHand():
     
     >>> p_hand
     (2, diamonds) (3, clubs) (A, spades)
-
+    
     >>> d_hand = DealerHand()
     >>> d_hand.add_card(card_4)
     >>> d_hand.add_card(card_5, card_6)
@@ -164,4 +164,3 @@ card_8 = Card("Q", "hearts")
 d_hand = DealerHand()
 d_hand.add_card(card_4)
 d_hand.add_card(card_5, card_6)
-# print(d_hand)
