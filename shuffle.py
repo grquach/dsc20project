@@ -30,6 +30,7 @@ class Shuffle:
         # Use Recursion.
         # Note that the top of the deck is the card at index 0.
         
+        assert len(cards) != 0
         assert isinstance(cards, list)
         assert isinstance(num, int)
         if num == 0:
@@ -49,5 +50,14 @@ class Shuffle:
         # Remember that the "top" of the deck is the first item in the list.
         # Use Recursion. Can use helper functions.
         
-        ...
+        shuffled_res = []
+        if len(cards) == 0:
+            return shuffled_res
+        else:
+            if len(cards)%2 == 0:
+                shuffled_res.append(cards[0])
+                return shuffled_res.extend(Shuffle.mongean(cards[1:]))
+            else:
+                shuffled_res.insert(0, cards[0])
+                return shuffled_res.extend(Shuffle.mongean(cards[1:]))
     
