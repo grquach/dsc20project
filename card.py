@@ -26,6 +26,7 @@ class Card:
     |__A|
     >>> card_3
     (A, diamonds)
+    
     # Doctests for comparisons
     >>> card_1 < card_2
     False
@@ -33,6 +34,7 @@ class Card:
     True
     >>> card_3 > card_1
     False
+    
     # Doctests for set_visible()
     >>> card_3.set_visible(False)
     >>> print(card_3)
