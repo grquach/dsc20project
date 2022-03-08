@@ -36,9 +36,18 @@ class Shuffle:
         if num == 0:
             return cards
         else:
-            middle = (len(cards)-1)//2
-            cards.insert(0, cards.pop(cards.index(middle)))
-            return Shuffle.modified_overhand(cards, num-1)
+            cut = 2
+            one_side = (len(cards)-num)//cut
+            if num%2==len(cards)%2:
+                temp = cards[one_side: -one_side]
+                del cards[one_side: -one_side]
+                cards = temp + cards
+                return Shuffle.modified_overhand(cards, num-1)
+            else:
+                temp = cards[one_side: -(one_side+1)]
+                del cards[one_side: -(one_side+1)]
+                cards = temp + cards
+                return Shuffle.modified_overhand(cards, num-1)
         #this isn't complete but its good enough to pass the doctests            
     
     def mongean(cards):
