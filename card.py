@@ -109,7 +109,7 @@ class Card:
             c1_suit = spade_val
             
         if self.other_card.get_suit() == 'clubs':
-            c2_suit = club_val
+            c1_suit = club_val
         elif self.other_card.get_suit() == 'diamonds':
             c2_suit = dia_val
         elif self.other_card.get_suit() == 'hearts':
