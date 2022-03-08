@@ -1,7 +1,6 @@
 class Card:
     """
     Card class.
-
     # Doctests for str and repr
     >>> card_1 = Card("A", "spades")
     >>> print(card_1)
@@ -27,7 +26,7 @@ class Card:
     |__A|
     >>> card_3
     (A, diamonds)
-
+    
     # Doctests for comparisons
     >>> card_1 < card_2
     False
@@ -35,7 +34,7 @@ class Card:
     True
     >>> card_3 > card_1
     False
-
+    
     # Doctests for set_visible()
     >>> card_3.set_visible(False)
     >>> print(card_3)
@@ -133,7 +132,6 @@ class Card:
         """
         Returns ASCII art of a card with the rank and suit. If the card is
         hidden, question marks are put in place of the actual rank and suit.
-
         Examples:
         ____
         |A  |
@@ -149,7 +147,7 @@ class Card:
         elif self.get_suit() == 'diamonds':
             suit_icon = '♦'
         elif self.get_suit() == 'hearts':
-            suit_icon = '♥️'
+            suit_icon = '♥'
         elif self.get_suit() == 'spades':
             suit_icon = '♠'
             
@@ -182,4 +180,3 @@ class Card:
 
     def set_visible(self, visible):
         self.visible = visible 
-    

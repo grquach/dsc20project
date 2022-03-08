@@ -49,6 +49,7 @@ class Shuffle:
         
         # Remember that the "top" of the deck is the first item in the list.
         # Use Recursion. Can use helper functions.
+
         def when_odd(cards):
             # if len(cards)%2==0:
             #     return when_even()
@@ -62,3 +63,4 @@ class Shuffle:
             return [cards[-1]] + when_odd(cards[:-1])
 
         return when_even(cards)
+
