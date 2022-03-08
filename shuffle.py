@@ -49,15 +49,18 @@ class Shuffle:
         
         # Remember that the "top" of the deck is the first item in the list.
         # Use Recursion. Can use helper functions.
-        
-        shuffled_res = []
-        if len(cards) == 0:
-            return shuffled_res
-        else:
-            if len(cards)%2 == 0:
-                shuffled_res.append(cards[0])
-                return shuffled_res.extend(Shuffle.mongean(cards[1:]))
-            else:
-                shuffled_res.insert(0, cards[0])
-                return shuffled_res.extend(Shuffle.mongean(cards[1:]))
-    
+
+        def when_odd(cards):
+            # if len(cards)%2==0:
+            #     return when_even()
+            return when_even(cards[:-1]) + [cards[-1]]
+        def when_even(cards):
+
+            if len(cards)==0:
+                return []
+            # if len(cards)%2==0:
+            #     return when_odd()
+            return [cards[-1]] + when_odd(cards[:-1])
+
+        return when_even(cards)
+
