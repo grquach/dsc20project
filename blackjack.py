@@ -172,11 +172,18 @@ class Blackjack:
     Not enough cards for a game.
     """
     # Class Attribute(s)
-
+    num_games = 0 
     def __init__(self, wallet):
         # Initialize instance attributes
         # auto-increment as needed
-        ...
+        self.deck = Deck()
+        assert isinstance(wallet, int) or isinstance(wallet, float)
+        self.wallet = wallet 
+        Blackjack.num_games += 1
+        self.game_number = Blackjack.num_games
+        assert isinstance(self.game_number, int)
+        self.log = ''
+        assert isinstance(self.log, str)
     
     def play_round(self, num_rounds, stand_threshold):
         """
@@ -208,8 +215,13 @@ class Blackjack:
         Returns:
             The best score as an integer value.
         """
-        ...
-
+        assert isinstance(hand, PlayerHand)
+        pre_calc = sum(list(map(lambda x: 10 if x.get_rank() in ('J', 'Q', 'K')\
+        else (11 if x.get_rank()=='A' else x.get_rank()), hand.get_cards())))
+        if pre_calc >= 22:
+            
+            
+        
     def determine_winner(self, player_score, dealer_score):
         """
         Determine whether the Blackjack round ended with a tie, dealer winning, 
@@ -235,10 +247,10 @@ class Blackjack:
         ...
 
     def get_log(self):
-        ...
+        return self.log
     
     def reset_log(self):
-        ...
+        self.log = ''
         
         
     def add_to_file(self, player_hand, dealer_hand, result):
