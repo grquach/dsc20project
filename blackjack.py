@@ -216,9 +216,15 @@ class Blackjack:
             The best score as an integer value.
         """
         assert isinstance(hand, PlayerHand)
-        pre_calc = sum(list(map(lambda x: 10 if x.get_rank() in ('J', 'Q', 'K')\
-        else (11 if x.get_rank()=='A' else x.get_rank()), hand.get_cards())))
-        if pre_calc >= 22:
+
+        num_a = sum(list(filter(lambda x: True if x.get_rank()=='A' \
+            else False, hand.get_cards())))
+        pre_calc = sum(list(map(lambda x: 10 if x.get_rank() \
+            in ('J', 'Q', 'K') else (11 if x.get_rank()=='A' \
+                else x.get_rank()), hand.get_cards())))
+        re_calc = [pre_calc-(10*a) for a in range(num_a+1) \
+            if pre_calc-(10*a)>=11]
+        return re_calc[-1]
             
             
         
