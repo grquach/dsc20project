@@ -1,3 +1,9 @@
+"""
+DSC 20 Project
+Names:  Gregory Quach,  Nathen Lee
+PID:    A16959667,      I'm not sure
+"""
+
 class Shuffle:
     """
     Different kinds of shuffling techniques.
