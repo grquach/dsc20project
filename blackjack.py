@@ -217,14 +217,19 @@ class Blackjack:
         """
         assert isinstance(hand, PlayerHand)
 
-        num_a = sum(list(filter(lambda x: True if x.get_rank()=='A' \
+        num_a = sum(list(map(lambda x: True if str(x.get_rank())=='A' \
             else False, hand.get_cards())))
         pre_calc = sum(list(map(lambda x: 10 if x.get_rank() \
-            in ('J', 'Q', 'K') else (11 if x.get_rank()=='A' \
+            in ('J', 'Q', 'K') else (11 if str(x.get_rank())=='A' \
                 else x.get_rank()), hand.get_cards())))
-        re_calc = [pre_calc-(10*a) for a in range(num_a+1) \
-            if pre_calc-(10*a)>=11]
-        return re_calc[-1]
+        re_calc = [pre_calc]
+        if num_a>0 and pre_calc>21:
+            re_calc = [pre_calc-(10*a) for a in range(1,num_a+1) \
+                if pre_calc-(10*a)>11]
+        try:
+            return re_calc[-1]
+        except:
+            return 0
             
             
         
