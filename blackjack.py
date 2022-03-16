@@ -250,7 +250,19 @@ class Blackjack:
             will stand (ie player stands if they have a score >= 
             this threshold).
         """
-        ...
+        self.hand = hand
+        self.stand_threshold = stand_threshold
+        if self.hand.calculate_score() >= stand_threshold:
+            pass
+        elif len(self.cards):
+            pass
+        else:
+            if isinstance(self.hand, DealerHand):
+                self.log = self.log + '\n' + 'Dealer pulled a ' + self.cards[0]
+                Deck.deal_hand(self.hand)
+            else:
+                self.log = self.log + '\n' + 'Player pulled a ' + self.cards[0]
+                Deck.deal_hand(self.hand)
 
     def get_log(self):
         return self.log
