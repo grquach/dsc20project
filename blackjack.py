@@ -242,7 +242,26 @@ class Blackjack:
         Returns:
             1 if the player won, 0 if it is a tie, and -1 if the dealer won
         """
-        ...
+        new_player_score = player_score
+        new_dealer_score = dealer_score
+        #when bust
+        if player_score > 21:
+            new_player_score = -1
+        if dealer_score > 21:
+            new_dealer_score = -1
+        
+        if new_player_score > new_dealer_score:
+            self.log = f'{self.log}Player won with a score of \
+{player_score}. Dealer lost with a score of {dealer_score}.\n'
+            return 1
+        elif new_player_score < new_dealer_score:
+            self.log = f'{self.log}Player lost with a score of \
+{player_score}. Dealer won with a score of {dealer_score}.\n'
+            return -1
+        else:# elif new_player_score == new_dealer_score:
+            self.log = f'{self.log}Player and Dealer tie.\n'
+            return 0
+
 
     def hit_or_stand(self, hand, stand_threshold):
         """
@@ -256,18 +275,20 @@ class Blackjack:
             this threshold).
         """
         self.hand = hand
-        self.stand_threshold = stand_threshold
-        if self.hand.calculate_score() >= stand_threshold:
+        if self.calculate_score(hand) >= stand_threshold:
             pass
-        elif len(self.cards):
+        elif len(self.deck.get_cards())==0:
             pass
         else:
+            new_card = self.deck.get_cards()[0]
             if isinstance(self.hand, DealerHand):
-                self.log = self.log + '\n' + 'Dealer pulled a ' + self.cards[0]
-                Deck.deal_hand(self.hand)
+                self.log = \
+                    f'{self.log}Dealer pulled a ({new_card.get_rank()}, {new_card.get_suit()})\n'
+                self.deck.deal_hand(self.hand)
             else:
-                self.log = self.log + '\n' + 'Player pulled a ' + self.cards[0]
-                Deck.deal_hand(self.hand)
+                self.log = \
+                    f'{self.log}Player pulled a {new_card.get_rank()}, {new_card.get_suit()}\n'
+                self.deck.deal_hand(self.hand)
 
     def get_log(self):
         return self.log
