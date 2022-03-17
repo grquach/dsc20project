@@ -211,8 +211,10 @@ class Blackjack:
         self.bet_amount = 5
         update_5 = 5
         min_cards = 5
+        round_count = 1
+        blackjack_score = 21
         
-        for i in range(self.num_rounds):
+        while round_count <= self.num_rounds:
             if len(self.deck.get_cards()) < min_cards:
                 self.log += 'Not enough cards for a game.'
                 break
@@ -223,11 +225,12 @@ class Blackjack:
                 break
             
             else:
-                self.log += 'Round ' + str(i+1) + ' of Blackjack!' + '\n'
+                rand_5 = 5
+                self.log += 'Round ' + str(round_count) + ' of Blackjack!' +'\n'
                 self.log += 'wallet: ' + str(self.wallet) + '\n'
                 self.log+= 'bet: ' + str(self.bet_amount) + '\n'
-                self.deck.shuffle(mongean=randint(0,5), \
-                modified_overhand=randint(0,5))
+                self.deck.shuffle(mongean=randint(0,rand_5), \
+                modified_overhand=randint(0,rand_5))
                     
                 self.deck.deal_hand(p_hand)
                 self.deck.deal_hand(d_hand)
@@ -253,15 +256,22 @@ class Blackjack:
                     winner = 'Player'
                     self.wallet += self.bet_amount
                     self.bet_amount += 5
-                elif self.determine_winner(p_score, d_score) == -1:
+                else:
                     winner = 'Dealer'
                     self.wallet -= self.bet_amount
                     if self.bet_amount > 5:
                         self.bet_amount -= 5
-                else:
-                    winner = 'Tied'
+                    else:
+                        self.bet_amount = 5
                 
+                if p_score == d_score and p_score <= blackjack_score and\
+                d_hand <= blackjack_score:
+                    winner == 'Tied'
+                    
                 self.add_to_file(p_hand, d_hand, winner)
+                
+                round_count += 1
+            
             
     def calculate_score(hand):
         """
@@ -320,17 +330,19 @@ class Blackjack:
             self.dealer_score = -1
         
         if self.player_score > self.dealer_score:
-            
+            self.winner = 'Player'
             self.log += 'Player won with a score of ' + str(player_score) \
             + '. Dealer lost with a score of ' + str(dealer_score) + '.\n'
             return 1
-        elif self.player_score < self.dealer_score:
             
+        elif self.player_score < self.dealer_score:
+            self.winner = 'Dealer'
             self.log += 'Player lost with a score of ' + str(player_score)\
             + '. Dealer won with a score of ' + str(dealer_score) + '.\n'
             return -1
-        else:# elif new_player_score == new_dealer_score:
             
+        else:
+            self.winner = 'Tied'
             self.log += 'Player and Dealer tie.\n'
             return 0
         
