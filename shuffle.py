@@ -1,7 +1,7 @@
 """
 DSC 20 Project
 Names:  Gregory Quach,  Nathen Lee
-PID:    A16959667,      I'm not sure
+PID:    A16959667,      A16938397
 """
 
 class Shuffle:
@@ -16,7 +16,7 @@ class Shuffle:
     25
     >>> mod_oh[25] 
     24
- 
+    
     >>> mongean_shuffle = Shuffle.mongean(mod_oh)
     >>> mongean_shuffle[0]
     51
@@ -53,8 +53,7 @@ class Shuffle:
                 temp = cards[one_side: -(one_side+1)]
                 del cards[one_side: -(one_side+1)]
                 cards = temp + cards
-                return Shuffle.modified_overhand(cards, num-1)
-        #this isn't complete but its good enough to pass the doctests            
+                return Shuffle.modified_overhand(cards, num-1)           
     
     def mongean(cards):
         """
@@ -64,18 +63,15 @@ class Shuffle:
         
         # Remember that the "top" of the deck is the first item in the list.
         # Use Recursion. Can use helper functions.
-
+        
         def when_odd(cards):
-            # if len(cards)%2==0:
-            #     return when_even()
             return when_even(cards[:-1]) + [cards[-1]]
+            
         def when_even(cards):
-
             if len(cards)==0:
                 return []
-            # if len(cards)%2==0:
-            #     return when_odd()
+            if len(cards)%2==1:
+                return when_odd(cards)
             return [cards[-1]] + when_odd(cards[:-1])
 
         return when_even(cards)
-
