@@ -211,10 +211,9 @@ class Blackjack:
         self.bet_amount = 5
         update_5 = 5
         min_cards = 5
-        round_count = 1
         blackjack_score = 21
         
-        while round_count <= self.num_rounds:
+        for i in range(self.num_rounds):
             if len(self.deck.get_cards()) < min_cards:
                 self.log += 'Not enough cards for a game.'
                 break
@@ -226,7 +225,7 @@ class Blackjack:
             
             else:
                 rand_5 = 5
-                self.log += 'Round ' + str(round_count) + ' of Blackjack!' +'\n'
+                self.log += 'Round ' + str(i+1) + ' of Blackjack!' +'\n'
                 self.log += 'wallet: ' + str(self.wallet) + '\n'
                 self.log+= 'bet: ' + str(self.bet_amount) + '\n'
                 self.deck.shuffle(mongean=randint(0,rand_5), \
@@ -270,9 +269,9 @@ class Blackjack:
                     
                 self.add_to_file(p_hand, d_hand, winner)
                 
-                round_count += 1
-            
-            
+                p_hand = PlayerHand()
+                d_hand = DealerHand()
+                
     def calculate_score(hand):
         """
         Calculates the score of a given hand. 
@@ -359,7 +358,7 @@ class Blackjack:
             this threshold).
         """
         self.hand = hand
-        self.stand_threshold
+        self.stand_threshold = stand_threshold
         if Blackjack.calculate_score(self.hand) >= self.stand_threshold:
             pass
         elif len(self.deck.get_cards())==0:
