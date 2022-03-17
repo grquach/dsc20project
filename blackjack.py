@@ -203,9 +203,9 @@ class Blackjack:
         """
         # This could get pretty long!
         self.num_rounds = num_rounds
-        self.stand_threshold = stand_threshold
+        self.player_threshold = stand_threshold
         assert isinstance(self.num_rounds, int)
-        assert isinstance(self.stand_threshold, int)
+        assert isinstance(self.player_threshold, int)
         p_hand = PlayerHand()
         d_hand = DealerHand()
         self.bet_amount = 5
@@ -227,7 +227,7 @@ class Blackjack:
                 rand_5 = 5
                 self.log += 'Round ' + str(i+1) + ' of Blackjack!' +'\n'
                 self.log += 'wallet: ' + str(self.wallet) + '\n'
-                self.log+= 'bet: ' + str(self.bet_amount) + '\n'
+                self.log += 'bet: ' + str(self.bet_amount) + '\n'
                 self.deck.shuffle(mongean=randint(0,rand_5), \
                 modified_overhand=randint(0,rand_5))
                     
@@ -239,8 +239,8 @@ class Blackjack:
                 self.log += 'Player Cards: ' + repr(p_hand) + '\n'
                 self.log += 'Dealer Cards: ' + repr(d_hand) + '\n'
                 
-                while Blackjack.calculate_score(p_hand) < self.stand_threshold:
-                    self.hit_or_stand(p_hand, self.stand_threshold)
+                while Blackjack.calculate_score(p_hand) < self.player_threshold:
+                    self.hit_or_stand(p_hand, self.player_threshold)
                 p_score = Blackjack.calculate_score(p_hand)
                 
                 d_hand.reveal_hand()
